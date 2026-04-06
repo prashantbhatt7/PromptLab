@@ -12,7 +12,9 @@ export async function generateStructuredPrompt(query: string): Promise<string> {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `You are an expert Prompt Engineer. Your task is to take a simple, short user query and transform it into a highly structured, professional, and effective AI prompt. 
+      contents: `You are an expert Prompt Engineer. Your task is to take a simple, short user query (which might be in any language) and transform it into a highly structured, professional, and effective AI prompt. 
+      
+      CRITICAL: The generated prompt MUST ALWAYS be in English, even if the user's query is in another language.
       
       The generated prompt should include:
       1. Role/Persona
@@ -48,6 +50,8 @@ export async function refinePrompt(currentPrompt: string, refinement: string): P
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `You are an expert Prompt Engineer. I have a current prompt and I want to refine it based on additional instructions.
+      
+      CRITICAL: The updated prompt MUST ALWAYS be in English, even if the refinement instructions are in another language.
       
       Current Prompt:
       "${currentPrompt}"
